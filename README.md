@@ -1,5 +1,11 @@
 # Fcitx.nvim
 
+This fork is a combination of following two repos:
+* [`alohaia/fcitx.nvim`](https://github.com/alohaia/fcitx.nvim): Fast response but doesn't work with MacOS.
+* [`h-hg/fcitx.nvim`](https://github.com/h-hg/fcitx.nvim): A little laggy but compatible.
+
+Minimum work has been done to empower alohaia's responsiveness to h-hg's flexible body.
+
 ## What is it
 
 A Neovim plugin writing in Lua to switch and restore fcitx state for each buffer. For example, switching to English input when leaving the INSERT mode, and restore Non-Latin input (like Chinese input) when enter the INSERT mode or COMMAND mode (for searching).
