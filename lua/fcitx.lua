@@ -18,7 +18,19 @@ if (os_name == 'Linux' or os_name == 'Unix') and os.getenv('DISPLAY') == nil and
 end
 
 local M = {}
-local input_toggle_flag = false
+
+-- local tf = false
+-- local setvar = function(value) tf=value end
+-- local getvar = function() return tf end
+
+local setvar = function(value) vim.b._input_tf = value end
+local getvar = function() 
+  return vim.b._input_tf or false
+end
+
+local function _exec(cmd, ...)
+    return vim.fn.system(table.concat({cmd, ...}, " "))
+end
 
 -- execute a command and return its output
 local function exec(cmd, ...)
@@ -35,18 +47,16 @@ end
 local function en()
   local input_status = tonumber(exec(fcitx_cmd))
   if input_status == 2 then
-    -- input_toggle_flag means whether to restore the state of fcitx
-    input_toggle_flag = true
-    -- switch to English input
+    setvar(true)
     exec(fcitx_cmd, '-c')
   end
 end
 
 local function zh()
-  if input_toggle_flag == true then
+  if getvar() == true then
     -- switch to Non-Latin input
     exec(fcitx_cmd, '-o')
-    input_toggle_flag = false
+    setvar(false)
   end
 end
 
